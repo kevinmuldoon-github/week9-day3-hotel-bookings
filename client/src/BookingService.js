@@ -3,17 +3,17 @@ const baseURL = 'http://localhost:5000/api/bookings/';
 // Function to retrieve all bookings
 export const getBookings = () => {
     return fetch (baseURL)
-        .then (res => res.json())
+        .then (res => res.json());
 };
 
 // Function to add a booking to the database
-export const postBooking = (payload) => {
+export const postBooking = (booking) => {
     return fetch(baseURL, {
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: JSON.stringify(booking),
         headers: { 'Content-Type': 'application/json'}
     })
-    .then(res => res.json())
+    .then(res => res.json());
 }
 
 // Function to delete a booking
@@ -23,10 +23,12 @@ export const deleteBooking = (id) => {
     })
 }
 
-// Function to change checked in status
-// export const changeCheckedInStatus = (id, status) => {
-//     return fetch(baseURL + id, {
-//         method: 'PUT',
-//         body: 
-//     })
-// }
+// Function to update booking
+export const updateBooking = (booking) => {
+    return fetch(baseURL + booking._id, {
+        method: 'PUT',
+        body: JSON.stringify(booking),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json());
+}

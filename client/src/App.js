@@ -25,6 +25,18 @@ const addBooking = (booking) => {
 
 }
 
+// Function to update booking useState
+
+const changeBooking = (bookingToUpdate) => {
+  const bookingIndex = hotelBookings.findIndex(
+    booking => booking._id === bookingToUpdate._id
+    );
+  const copyOfBookings = [...hotelBookings];
+  copyOfBookings[bookingIndex] = bookingToUpdate;
+  setHotelBookings(copyOfBookings);
+
+}
+
 // function to delete a booking
 const removeBooking = (id) => {
   const copyOfBookings = hotelBookings.map(b => b); // Create copy of hoteBookings useState
@@ -39,7 +51,7 @@ const removeBooking = (id) => {
     
     <>
       <BookingForm addBooking={addBooking} />
-      <BookingList bookings={hotelBookings} removeBooking={removeBooking} />
+      <BookingList bookings={hotelBookings} removeBooking={removeBooking} changeBooking = {changeBooking} />
 
     </>
   );

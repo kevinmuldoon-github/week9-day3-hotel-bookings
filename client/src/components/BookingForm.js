@@ -3,19 +3,35 @@ import { postBooking } from "../BookingService";
 
 const BookingForm = ({addBooking}) => {
 
-    const [formData, setFormData] = useState ({});
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [checkedin, setCheckedIn] = useState(false);
 
-    const onChange = (event) => {
-        formData[event.target.id] = event.target.value;
-        setFormData(formData);
+    const nameChange = (event) => {
+        setName(event.target.value)
+    }
+
+    const emailChange = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const checkedinChange = (event) => {
+        if (event.target.value=="true") {setCheckedIn(true)}
+        else {setCheckedIn(false)}
     }
 
     const onSubmit = (event) => {
         event.preventDefault();
-        postBooking(formData)
+        postBooking({
+            name: name,
+            email: email,
+            checkedin: checkedin
+        })
             .then( (data) => {
                 addBooking(data);
             })
+        setName('');
+        setEmail('');
     }
 
 
@@ -24,17 +40,17 @@ const BookingForm = ({addBooking}) => {
         <h2>Add a Booking</h2>
         <div>
             <label htmlFor="name">Customer Name: </label>
-            <input onChange={onChange} type="text" id="name"  required />
+            <input onChange={nameChange} type="text" id="name" value={name} required />
         </div>
         <div>
             <label htmlFor="email">Customer Email: </label>
-            <input onChange={onChange} type="email" id="email"  required />
+            <input onChange={emailChange} type="email" id="email" value={email} required />
         </div>
         <div>
         <label htmlFor="checkedin">Checked In: </label>
-        <select id="checkedin" name="checkedin">
+        <select onChange={checkedinChange} id="checkedin" name="checkedin">
+            <option value="false">No</option>
             <option value="true">Yes</option>
-            <option value="true">No</option>
         </select>
         </div>
 

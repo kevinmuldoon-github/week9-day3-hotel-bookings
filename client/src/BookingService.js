@@ -16,10 +16,17 @@ export const postBooking = (payload) => {
     .then(res => res.json())
 }
 
-
 // Function to delete a booking
 export const deleteBooking = (id) => {
     return fetch(baseURL + id, {
         method: 'DELETE'
     })
 }
+
+// Function to change checked in status
+// export const changeCheckedInStatus = (id, status) => {
+//     return fetch(baseURL + id, {
+//         method: 'PUT',
+//         body: 
+//     })
+// }

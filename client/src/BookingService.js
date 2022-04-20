@@ -27,7 +27,11 @@ export const deleteBooking = (id) => {
 export const updateBooking = (booking) => {
     return fetch(baseURL + booking._id, {
         method: 'PUT',
-        body: JSON.stringify(booking),
+        body: JSON.stringify({ // Don't pass ID in update request
+            name: booking.name,
+            email: booking.email,
+            checkedin: booking.checkedin
+        }),
         headers: { 'Content-Type': 'application/json'}
     })
     .then(res => res.json());
